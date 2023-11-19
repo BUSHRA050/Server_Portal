@@ -3,7 +3,7 @@
    "name":"new_server_bhs",
    "builds": [
     {
-        "src": "index.js",
+        "src": "server.js",
         "use": "@vercel/node"
     }
    ],
