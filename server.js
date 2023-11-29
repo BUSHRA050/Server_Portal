@@ -10,6 +10,7 @@ const orginizationProfile = require('./routes/orginization/orginizationProfile')
 const favourite = require('./routes/user/favourite')
 const appliedJobs = require('./routes/user/appliedJobs')
 const resumes = require('./routes/user/resume')
+const coverLetter = require('./routes/user/coverLetter')
 const adminAuthentication = require('./routes/admin/adminAuthentication')
 const saveResume = require('./routes/orginization/saveResume')
 const Orginization = require("./model/orginization/orginizationAuthentication")
@@ -44,6 +45,7 @@ app.use("/api", resumes)
 app.use("/api", saveResume)
 app.use("/api", orginizationProfile)
 app.use("/api", subscriptionPlan)
+app.use("/api", coverLetter)
 
 app.listen(PORT, (req, res) => {
   console.log("server is running on port", PORT);

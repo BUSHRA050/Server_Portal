@@ -14,6 +14,8 @@ const adminAuthentication = require('./routes/admin/adminAuthentication')
 const saveResume = require('./routes/orginization/saveResume')
 const Orginization = require("./model/orginization/orginizationAuthentication")
 const subscriptionPlan = require("./routes/orginization/subuscriptionplan")
+const coverLetter = require('./routes/user/coverLetter')
+
 
 var PORT = process.env.PORT || 5000;
 
@@ -44,6 +46,7 @@ app.use("/api", resumes)
 app.use("/api", saveResume)
 app.use("/api", orginizationProfile)
 app.use("/api", subscriptionPlan)
+app.use("/api", coverLetter)
 
 app.listen(PORT, (req, res) => {
   console.log("server is running on port", PORT);
