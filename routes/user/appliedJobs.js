@@ -4,6 +4,7 @@ const UserAppliedJobs = require("../../model/user/appliedjobs");
 const Jobs = require("../../model/orginization/postJob");
 const User = require("../../model/user/userAuthentication");
 const Resume = require("../../model/user/resume");
+const CoverLetter = require("../../model/user/coverLetter");
 const natural = require('natural');
 const fs = require('fs');
 
@@ -12,6 +13,7 @@ router.post("/applyJobs", async (req, res) => {
   try {
     const user = await User.findOne({ _id: userId });
     const resume = await Resume.findOne({ userId: userId });
+    const coverLetter = await CoverLetter.findOne({ userId: userId });
     const data = await Jobs.findOne({
       _id: jobId,
     });
@@ -54,6 +56,7 @@ router.post("/applyJobs", async (req, res) => {
         userId: userId,
         userDetails: user,
         resume: resume,
+        coverLetter:coverLetter,
       };
 
       if (data) {
@@ -76,7 +79,7 @@ router.post("/applyJobs", async (req, res) => {
         res.send({
           data: data,
           status: "ok",
-          message: "Applied Successfully",
+          message: `Applied Successfully and your resume score for this job is ${Math.round(percentage)}%`,
         });
       } else {
         res.status(400).send({
@@ -114,12 +117,14 @@ router.post("/getAppliedJobs", async (req, res) => {
       })
     );
     // console.log(find,"myyyArray");
+    console.log(tempArr,"tempArrrrrrrrrrrrr");
     res.send({
       data: tempArr,
       status: "ok",
       message: "Succesful",
     });
   } catch (error) {
+    console.log(error,"errorrrrrrrr");
     res.status(400).send({
       status: "error",
       message: "something went wrong",

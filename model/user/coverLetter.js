@@ -13,6 +13,7 @@ const CoverLetterSchema = new mongoose.Schema(
         reviews: { type: Array, default: [] },
         category: { type: String, default: "" },
         jobDescription: { type: String, default: "" },
+        selectedTemplate:{type:String},
     },
     { collection: "CoverLetter" }
 )

@@ -228,7 +228,7 @@ router.post("/createJob", async (req, res) => {
 
 router.get("/getJobsById/:id", async (req, res) => {
   const { id } = req.params;
-  console.log(id, "mdmdmf,mfm,fm");
+  // console.log(id, "mdmdmf,mfm,fm");
   try {
     const jobs = await Jobs.find({ companyId: id });
     res.status(200).send({ data: jobs, status: "ok" });

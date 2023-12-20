@@ -51,7 +51,7 @@ router.post("/createResume", async (req, res) => {
       message: "Resume created Successfully",
     });
   } catch (error) {
-    console.log(error, "Error");
+    console.log(error, "Salmannnnnnnnnnnnn");
     return res.status(400).json({
       status: "error",
       message: "something went wrong",

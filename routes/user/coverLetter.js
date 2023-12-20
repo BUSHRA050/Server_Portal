@@ -59,10 +59,10 @@ router.get("/getCoverLetterById/:id", async (req, res) => {
 });
 
 router.get("/getCoverLetter/:id", async (req, res) => {
-  console.log("CALLED");
   const { id } = req.params;
   try {
-    const result = await CoverLetter.findOne({ _id: id })
+    console.log(id,"iddddddddddddddddddddddddddddddd");
+    const result = await CoverLetter.findOne({_id:id});
     const user = await Users.findOne({ _id: result.userId })
     let data = {
       user,
@@ -70,6 +70,7 @@ router.get("/getCoverLetter/:id", async (req, res) => {
     }
     res.status(200).send({ data: data, status: "ok" });
   } catch (error) {
+    console.log(error,"errorrrrrrrrrrrrrrrrr");
     res.status(400).send({ status: "error", message: "something went wrong" });
   }
 });

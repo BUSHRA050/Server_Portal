@@ -20,7 +20,8 @@ const resumeSchema = new mongoose.Schema(
         hobbies: { type: Array, default: [] },
         viewdComapnies: { type: Array, default: [] },
         reviews: { type: Array, default: [] },
-        category: { type: String, default: "" }
+        category: { type: String, default: "" },
+        selectedTemplate:{type:String},
     },
     { collection: "Resume" }
 )
