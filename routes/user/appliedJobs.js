@@ -18,14 +18,14 @@ router.post("/applyJobs", async (req, res) => {
       _id: jobId,
     });
     const jobStringify = JSON.stringify(data)
-    fs.writeFileSync('job.txt', jobStringify, 'utf8')
-    const jobOutput = fs.readFileSync('job.txt', 'utf8')
+    // fs.writeFileSync('job.txt', jobStringify, 'utf8')
+    // const jobOutput = fs.readFileSync('job.txt', 'utf8')
     const resumeStrigify = JSON.stringify(resume);
-    fs.writeFileSync('resume.txt', resumeStrigify, 'utf8');
-    const resumeTextOutput = fs.readFileSync('resume.txt', 'utf8');
+    // fs.writeFileSync('resume.txt', resumeStrigify, 'utf8');
+    // const resumeTextOutput = fs.readFileSync('resume.txt', 'utf8');
     const tokens = natural.PorterStemmer.tokenizeAndStem(resumeStrigify);
     const jobTokens = natural.PorterStemmer.tokenizeAndStem(jobStringify);
-    const jobOject = JSON.parse(jobOutput);
+    // const jobOject = JSON.parse(jobOutput);
     // Initialize the score to 0
     let score = 0;
 
