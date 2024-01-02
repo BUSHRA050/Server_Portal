@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const Admin = require("../../model/admin/adminAuthentication");
+const User=require("../../model/user/userAuthentication")
 const jwt = require("jsonwebtoken");
 const JWT_SECRET =
   "sfaosoowennsflaaoosdnqnwieieiwdnsnnsasdasdkasdkqwiebsicxzicbzibaibdd";
@@ -34,6 +35,65 @@ router.post("/registerAdmin", async (req, res) => {
     });
   }
 });
+
+router.get("/adminDashboard", async (req, res) => {
+try {
+  const totalCandidate=await User.find({role:"Candidate"});
+  const totalOrganizations=await User.find({role:"Organization"});
+  const organization = await User.aggregate([
+    {
+        $match: { role: "Organization" }
+    },
+    {
+        $addFields: {
+            dateString: { $dateToString: { format: "%Y-%m-%dT%H:%M:%S.%LZ", date: "$date" } }
+        }
+    },
+    {
+        $group: {
+            _id: {
+                $dateToString: {
+                    date: { $dateFromString: { dateString: "$dateString" } },
+                    format: "%m",
+                }
+            },
+            numberofOrganization: { $sum: 1 },
+        },
+    },
+]);
+
+const users = await User.aggregate([
+  {
+      $match: { role: "Candidate" }
+  },
+  {
+      $addFields: {
+          dateString: { $dateToString: { format: "%Y-%m-%dT%H:%M:%S.%LZ", date: "$date" } }
+      }
+  },
+  {
+      $group: {
+          _id: {
+              $dateToString: {
+                  date: { $dateFromString: { dateString: "$dateString" } },
+                  format: "%m",
+              }
+          },
+          numberofOrganization: { $sum: 1 },
+      },
+  },
+]);
+let data={
+  totalCandidate:totalCandidate.length,
+  totalOrganizations:totalOrganizations.length,
+  organizationChartData:organization,
+  candidateChartData:users
+}
+res.status(200).send({ status: "ok", data:data});
+} catch (error) {
+  res.status(400).send({ status: "error", message: "Something went wrong" });
+}
+})
 
 router.post("/loginAdmin", async (req, res) => {
   const { email, password } = req.body;
